@@ -165,8 +165,6 @@ INSTALLED_APPS = (
     'django_premailer',
 )
 
-AUTH_PROFILE_MODULE = "users.UserProfile"
-
 ACCOUNT_ACTIVATION_DAYS = 7
 INVITE_EXPIRED_DAYS = 180
 

@@ -26,7 +26,7 @@ class ContestSubmissionWaiting(Exception):
 
 class ContestSubmission(models.Model):
     issue = models.ForeignKey('issues.Issue', db_index=True, null=False, blank=False)
-    author = models.ForeignKey(User, null=False, blank=False)
+    author = models.OneToOneField(User, null=False, blank=False)
     file = models.ForeignKey('issues.File', null=False, blank=False)
 
     run_id = models.CharField(max_length=191, blank=True)
@@ -61,7 +61,7 @@ class ContestSubmission(models.Model):
         try:
             issue = self.issue
             file = self.file
-            student_profile = issue.student.get_profile()
+            student_profile = issue.student.profile
             contest_id = issue.task.contest_id
             course = issue.task.course
             if not compiler_id:
@@ -182,7 +182,7 @@ class ContestSubmission(models.Model):
         run_id = self.run_id
 
         try:
-            student_profile = issue.student.get_profile()
+            student_profile = issue.student.profile
             course = issue.task.course
             if student_profile.ya_contest_oauth and course.send_to_contest_from_users:
                 oauth = student_profile.ya_contest_oauth

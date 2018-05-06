@@ -16,7 +16,7 @@ class Lesson(models.Model):
     course = models.ForeignKey(Course, db_index=True, null=False, blank=False)
     group = models.ForeignKey(Group, null=False, blank=False)
     not_visited_students = models.ManyToManyField(User, null=True, blank=True)
-    updated_by = models.ForeignKey(User, db_index=False, null=True, blank=True, related_name='authors')
+    updated_by = models.OneToOneField(User, db_index=False, null=True, blank=True, related_name='authors')
     schedule_id = models.CharField(max_length=100, db_index=True, null=True, blank=True)
     position = models.IntegerField(db_index=True, null=True, blank=True)
 

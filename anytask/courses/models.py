@@ -260,7 +260,7 @@ class Course(models.Model):
 
 
 class DefaultTeacher(models.Model):
-    teacher = models.ForeignKey(User, db_index=False, null=True, blank=True)
+    teacher = models.OneToOneField(User, db_index=False, null=True, blank=True)
     course = models.ForeignKey(Course, db_index=True, null=False, blank=False)
     group = models.ForeignKey(Group, db_index=True, null=True, blank=True)
 
@@ -272,11 +272,11 @@ class DefaultTeacher(models.Model):
 
 
 class StudentCourseMark(models.Model):
-    student = models.ForeignKey(User, db_index=True, null=False, blank=False)
+    student = models.OneToOneField(User, db_index=True, null=False, blank=False)
     course = models.ForeignKey(Course, db_index=False, null=False, blank=False)
     mark = models.ForeignKey(MarkField, db_index=False, null=True, blank=True)
 
-    teacher = models.ForeignKey(User, related_name='teacher_change_mark', db_index=False, null=True, blank=True)
+    teacher = models.OneToOneField(User, related_name='teacher_change_mark', db_index=False, null=True, blank=True)
     update_time = models.DateTimeField(auto_now=True, default=timezone.now)
 
     def __unicode__(self):

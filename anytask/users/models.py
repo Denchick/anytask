@@ -23,7 +23,7 @@ def get_upload_path(instance, filename):
 
 
 class UserProfile(models.Model):
-    user = models.ForeignKey(User, db_index=True, null=False, blank=False, unique=True, related_name='profile')
+    user = models.OneToOneField(User, db_index=True, null=False, blank=False, unique=True, related_name='profile')
     middle_name = models.CharField(max_length=128, db_index=True, null=True, blank=True)
     user_status = models.ManyToManyField(UserStatus, db_index=True, null=True, blank=True,
                                          related_name='users_by_status')
@@ -60,7 +60,7 @@ class UserProfile(models.Model):
     added_time = models.DateTimeField(auto_now_add=True, default=timezone.now)
     update_time = models.DateTimeField(auto_now=True, default=timezone.now)
 
-    updated_by = models.ForeignKey(User, db_index=False, null=True, blank=True)
+    updated_by = models.OneToOneField(User, db_index=False, null=True, blank=True)
 
     login_via_yandex = models.BooleanField(db_index=False, null=False, blank=False, default=False)
 
@@ -112,7 +112,7 @@ class UserProfile(models.Model):
 
 
 class UserProfileLog(models.Model):
-    user = models.ForeignKey(User, db_index=True, null=False, blank=False, related_name='profiles_logs_by_user')
+    user = models.OneToOneField(User, db_index=True, null=False, blank=False, related_name='profiles_logs_by_user')
     middle_name = models.CharField(max_length=128, db_index=True, null=True, blank=True)
     user_status = models.ManyToManyField(UserStatus, db_index=True, null=True, blank=True)
 
@@ -165,7 +165,7 @@ class UserProfileLog(models.Model):
 
     language = models.CharField(default="ru", max_length=128, unique=False, null=True, blank=True)
 
-    updated_by = models.ForeignKey(User, db_index=False, null=True, blank=True)
+    updated_by = models.OneToOneField(User, db_index=False, null=True, blank=True)
 
     def is_current_year_student(self):
         return Group.objects.filter(year=get_current_year()).filter(students=self.user).count() > 0

@@ -15,7 +15,7 @@ from django.db import IntegrityError
 
 
 class Invite(models.Model):
-    generated_by = models.ForeignKey(User, db_index=False, null=False, blank=False, related_name='invite_generated_by')
+    generated_by = models.OneToOneField(User, db_index=False, null=False, blank=False, related_name='invite_generated_by')
     group = models.ForeignKey(Group, db_index=False, null=True, blank=True)
     invited_users = models.ManyToManyField(User, null=True, blank=True)
 

@@ -51,7 +51,7 @@ class File(models.Model):
 
 
 class Issue(models.Model):
-    student = models.ForeignKey(User, db_index=True, null=False, blank=False, related_name='student')
+    student = models.OneToOneField(User, db_index=True, null=False, blank=False, related_name='student')
     task = models.ForeignKey(Task, db_index=True, null=True, blank=False)
 
     mark = models.FloatField(db_index=False, null=False, blank=False, default=0)
@@ -59,7 +59,7 @@ class Issue(models.Model):
     create_time = models.DateTimeField(auto_now_add=True, default=timezone.now)
     update_time = models.DateTimeField(default=timezone.now)
 
-    responsible = models.ForeignKey(User, db_index=True, null=True, blank=True, related_name='responsible')
+    responsible = models.OneToOneField(User, db_index=True, null=True, blank=True, related_name='responsible')
     followers = models.ManyToManyField(User, null=True, blank=True)
 
     STATUS_NEW = 'new'
@@ -485,7 +485,7 @@ class Issue(models.Model):
 
 class Event(models.Model):
     issue = models.ForeignKey(Issue, null=False, blank=False)
-    author = models.ForeignKey(User, db_index=True, null=True, blank=True)
+    author = models.OneToOneField(User, db_index=True, null=True, blank=True)
     field = models.ForeignKey(IssueField, blank=False, default=1)
 
     value = models.TextField(max_length=2500, blank=True)
@@ -572,7 +572,7 @@ class IssueFilter(django_filters.FilterSet):
 
     def set_course(self, course, user):
         default_choices = {}
-        lang = user.get_profile().language
+        lang = user.profile.language
         for field in self.filters:
             self.filters[field].field.label = u'<strong>{0}</strong>'.format(self.filters[field].field.label)
         teacher_choices = []

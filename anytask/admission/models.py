@@ -150,7 +150,7 @@ class AdmissionRegistrationProfileManager(RegistrationManager):
 
 
 class AdmissionRegistrationProfile(models.Model):
-    user = models.ForeignKey(User, unique=False, null=False, blank=False)
+    user = models.OneToOneField(User, unique=False, null=False, blank=False)
     activation_key = models.CharField(max_length=40, null=True, blank=True)
     old_activation_key = models.CharField(max_length=40, null=True, blank=True)
     is_updating = models.BooleanField(default=False)

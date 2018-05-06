@@ -49,7 +49,7 @@ def login_required_basic_auth(view):
 
 
 def unpack_user(user):
-    profile = user.get_profile()
+    profile = user.profile
     return {
         "id": user.id,
         "name": user.get_full_name(),

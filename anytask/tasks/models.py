@@ -72,7 +72,7 @@ class Task(models.Model):
     update_time = models.DateTimeField(auto_now=True, default=timezone.now)
     deadline_time = models.DateTimeField(auto_now=False, blank=True, null=True, default=None)
 
-    updated_by = models.ForeignKey(User, db_index=False, null=True, blank=True)
+    updated_by = models.OneToOneField(User, db_index=False, null=True, blank=True)
 
     contest_id = models.IntegerField(db_index=True, null=False, blank=False, default=0)
     problem_id = models.CharField(max_length=128, db_index=True, null=True, blank=True)
@@ -260,7 +260,7 @@ class TaskLog(models.Model):
     update_time = models.DateTimeField(auto_now=True, default=timezone.now)
     deadline_time = models.DateTimeField(auto_now=False, null=True, default=None)
 
-    updated_by = models.ForeignKey(User, db_index=False, null=True, blank=True)
+    updated_by = models.OneToOneField(User, db_index=False, null=True, blank=True)
 
     contest_id = models.IntegerField(db_index=True, null=False, blank=False, default=0)
     problem_id = models.CharField(max_length=128, db_index=True, null=True, blank=True)
@@ -276,7 +276,7 @@ class TaskTaken(models.Model):
     STATUS_SCORED = 3
     STATUS_DELETED = 4
 
-    user = models.ForeignKey(User, db_index=True, null=False, blank=False)
+    user = models.OneToOneField(User, db_index=True, null=False, blank=False)
     task = models.ForeignKey(Task, db_index=True, null=False, blank=False)
     issue = models.ForeignKey('issues.Issue', db_index=True, null=True, blank=False)
 
