@@ -479,6 +479,8 @@ class ViewsTest(TestCase):
                                 'status': '4'}, follow=True)
 
         self.assertEqual(response.status_code, 200, "Can't get issue_page via teacher")
+        print '=================================\n\n\n\n'
+        print(response.redirect_chain)
         self.assertEqual(len(response.redirect_chain), 1, "Must be redirect")
 
         html = BeautifulSoup(response.content)

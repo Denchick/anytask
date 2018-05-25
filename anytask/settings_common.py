@@ -4,6 +4,8 @@
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 import os
+import warnings
+warnings.filterwarnings("error", category=DeprecationWarning)
 
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 
@@ -164,6 +166,8 @@ INSTALLED_APPS = (
     'api',
     'django_premailer',
 )
+
+AUTH_PROFILE_MODULE = "users.UserProfile"
 
 ACCOUNT_ACTIVATION_DAYS = 7
 INVITE_EXPIRED_DAYS = 180
